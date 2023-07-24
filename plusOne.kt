@@ -28,3 +28,20 @@ fun plusOne(digits: IntArray): IntArray {
     return a.toIntArray()
 }
 
+fun plusOneFaster(digits: IntArray): IntArray {
+    var sum = digits.clone()
+
+    for(i in sum.size - 1 downTo 0){
+        if(sum[i] < 9){
+            sum[i] += 1
+            return sum
+        }
+        sum[i] = 0
+    }
+
+    sum = IntArray(digits.size + 1)
+    
+    sum[0] = 1
+
+    return sum
+}
