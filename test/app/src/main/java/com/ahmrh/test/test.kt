@@ -669,106 +669,6 @@ fun removeDuplicates(nums: IntArray): Int {
     return nums.sorted().distinct().size
 }
 
-fun sortList(head: ListNode?): ListNode? {
-
-    data class p(
-        var listNode: ListNode? = null
-    )
-
-    fun printListNode(head: ListNode?) {
-
-        val pointer = p(head)
-
-        while (pointer.listNode != null) {
-            println(pointer.listNode?.`val`)
-            pointer.listNode = pointer.listNode?.next
-        }
-    }
-
-    fun getMiddle(head: ListNode?): ListNode? {
-
-        if (head == null) return head
-
-        var slow = head
-        var fast = head
-
-        while (fast!!.next != null && fast.next!!.next != null) {
-            fast = fast.next!!.next
-            slow = slow!!.next
-        }
-
-        return slow
-    }
-
-    fun split(head: ListNode?): Array<ListNode?>? {
-
-        if (head == null) return null
-        val left = head
-
-        val mid = getMiddle(head)
-        val right = mid?.next
-        mid?.next = null
-
-        return arrayOf(left, right)
-    }
-
-    split(head)
-
-    fun merge(left: ListNode?, right: ListNode?): ListNode? {
-
-        val pLeft = p(left)
-        val pRight = p(right)
-
-        var merged: ListNode? = ListNode(-100)
-
-        fun mergeRight() {
-
-            merged?.next = pRight.listNode
-            pRight.listNode = pRight.listNode?.next
-        }
-
-        fun mergeLeft() {
-
-            merged?.next = pLeft.listNode
-            pLeft.listNode = pLeft.listNode?.next
-        }
-
-        while (pLeft.listNode != null || pRight.listNode != null) {
-            if (pLeft.listNode == null)
-                mergeRight()
-            else if (pRight.listNode == null)
-                mergeLeft()
-            else if (pRight.listNode!!.`val` > pLeft.listNode!!.`val`)
-                mergeLeft()
-            else
-                mergeRight()
-
-            merged = merged?.next
-        }
-
-
-        return merged?.next
-    }
-
-    fun mergeSort(head: ListNode?): ListNode? {
-        if (head == null) return null
-
-        val a = split(head)
-
-        val left = a?.get(0)
-        mergeSort(left)
-
-        val right = a?.get(1)
-        mergeSort(right)
-
-        return merge(left, right)
-    }
-
-    val b = mergeSort(head)
-    printListNode(b)
-    return b
-}
-
 
 fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
 
@@ -825,9 +725,9 @@ fun mergeTrees(root1: TreeNode?, root2: TreeNode?): TreeNode? {
 fun numIdenticalPairs(nums: IntArray): Int {
     var count = 0
 
-    for(i in nums.indices){
-        for(j in i + 1 until nums.size){
-            if(nums[i] == nums[j]) count += 1
+    for (i in nums.indices) {
+        for (j in i + 1 until nums.size) {
+            if (nums[i] == nums[j]) count += 1
         }
     }
 
@@ -844,22 +744,100 @@ fun numIdenticalPairsInteresting(nums: IntArray): Int {
 }
 
 fun strStr(haystack: String, needle: String): Int {
-    for(i in 0 .. haystack.length - needle.length){
-        if(haystack.substring(i, i + needle.length) == needle)
+    for (i in 0..haystack.length - needle.length) {
+        if (haystack.substring(i, i + needle.length) == needle)
             return i
     }
 
     return -1
 }
 
+fun sortList(head: ListNode?): ListNode? {
+    data class p(
+        var listNode: ListNode? = null
+    )
+
+    fun printListNode(head: ListNode?) {
+
+        val pointer = p(head)
+
+        while (pointer.listNode != null) {
+            print("${pointer.listNode?.`val`} ")
+            pointer.listNode = pointer.listNode?.next
+        }
+        println()
+    }
+
+    fun getMiddlePrec(head: ListNode?): ListNode? {
+
+        if (head == null) return head
+
+        var slow = head
+        var fast = head
+
+        while (fast!!.next != null && fast.next!!.next != null) {
+            fast = fast.next!!.next
+            slow = slow!!.next
+        }
+
+        return slow
+    }
+
+    fun merge(left: ListNode?, right: ListNode?): ListNode? {
+        var leftPointer = left
+        var rightPointer = right
+
+        val dummy = ListNode(-1)
+        var pointer: ListNode? = dummy
+
+        while (leftPointer != null && rightPointer != null) {
+            var listNode: ListNode? = null
+
+            if (leftPointer.`val` < rightPointer.`val`) {
+                listNode = leftPointer
+                leftPointer = leftPointer.next
+            } else {
+                listNode = rightPointer
+                rightPointer = rightPointer.next
+            }
+            pointer?.next = listNode
+            pointer = listNode
+        }
+
+        if (leftPointer != null) pointer?.next = leftPointer
+        if (rightPointer != null) pointer?.next = rightPointer
+
+        return dummy.next
+
+    }
+
+    if (head?.next == null) return head
+    val middlePrec = getMiddlePrec(head)
+    val middle = middlePrec?.next
+    middlePrec?.next = null
+
+
+    val sorted = merge(sortList(head), sortList(middle))
+    printListNode(sorted)
+    return sorted
+}
+
+
+
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
 
-    var nums = intArrayOf(1, 2, 3, 1, 1, 3)
-    numIdenticalPairs(nums)
 
-    val root1 = TreeNode(1)
-    root1.left = TreeNode(3)
+    val listNode = ListNode(3)
+    listNode.next = ListNode(4)
+    listNode.next!!.next = ListNode(1)
+
+    sortList(listNode)
+//    var nums = intArrayOf(1, 2, 3, 1, 1, 3)
+//    numIdenticalPairs(nums)
+//
+//    val root1 = TreeNode(1)
+//    root1.left = TreeNode(3)
 
 
 //    val strs = arrayOf("ab", "a")
