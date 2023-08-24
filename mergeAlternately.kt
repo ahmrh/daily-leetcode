@@ -24,3 +24,21 @@ fun mergeAlternately(word1: String, word2: String): String {
 
     return s
 }
+
+fun mergeAlternatelyWithStringBuilder(word1: String, word2: String): String {
+    val sb = StringBuilder()
+
+    for(i in 0 until Math.min(word1.length, word2.length)){
+        sb.append(word1[i])
+        sb.append(word2[i])
+    }
+
+    if(word1.length > word2.length)
+        sb.append(word1.substring(word2.length))
+
+    else if(word1.length < word2.length)
+        sb.append(word2.substring(word1.length))
+
+    return sb.toString()
+}
+
