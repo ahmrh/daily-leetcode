@@ -1,6 +1,5 @@
 package com.ahmrh.test
 
-import android.os.Build.VERSION_CODES.N
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import java.lang.Exception
@@ -828,12 +827,13 @@ fun solveNQueens(n: Int): List<List<String>> {
     val solutions = mutableListOf<List<String>>()
     val queenIndices = mutableListOf<Pair<Int, Int>>()
 
-    fun buildString(index: Pair<Int, Int>): String{
+    fun buildString(index: Pair<Int, Int>): String {
         var s = ""
-        for(i in 0 until n)
-            s += if(i == index.second) "Q" else "."
+        for (i in 0 until n)
+            s += if (i == index.second) "Q" else "."
         return s
     }
+
     fun isSafe(index: Pair<Int, Int>): Boolean {
 
         queenIndices.forEach { queenIndex ->
@@ -848,7 +848,7 @@ fun solveNQueens(n: Int): List<List<String>> {
 
     fun nQueen(x: Int) {
         if (x == n) {
-            val solution = queenIndices.map{
+            val solution = queenIndices.map {
                 buildString(it)
             }
             solutions.add(solution)
@@ -869,16 +869,45 @@ fun solveNQueens(n: Int): List<List<String>> {
     return solutions
 }
 
+fun mergeAlternately(word1: String, word2: String): String {
+    var s = ""
+
+    val s1 = word1.toMutableList()
+    val s2 = word2.toMutableList()
+
+    while(s1.size != 0 && s2.size != 0){
+        if(s.length % 2 == 0) {
+            s += s1[0]
+            s1.removeAt(0)
+        }
+        else {
+            s += s2[0]
+            s2.removeAt(0)
+        }
+    }
+
+    if(s1.size != 0){
+        s += s1.joinToString(separator = "")
+    }
+    if(s2.size != 0){
+        s += s2.joinToString(separator = "")
+    }
+
+    return s
+}
 
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
 
+    val word1 = "abc"
+    val word2 = "pqr"
+    println(mergeAlternately(word1, word2))
 
-    val listNode = ListNode(3)
-    listNode.next = ListNode(4)
-    listNode.next!!.next = ListNode(1)
-
-    sortList(listNode)
+//    val listNode = ListNode(3)
+//    listNode.next = ListNode(4)
+//    listNode.next!!.next = ListNode(1)
+//
+//    sortList(listNode)
 //    var nums = intArrayOf(1, 2, 3, 1, 1, 3)
 //    numIdenticalPairs(nums)
 //
