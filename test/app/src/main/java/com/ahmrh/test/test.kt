@@ -902,15 +902,38 @@ fun moveZeroes(nums: IntArray): Unit {
     }
 }
 
+fun findMaxAverage(nums: IntArray, k: Int): Double {
+
+    var sum = 0.0
+    for(i in 0 until k)
+        sum += nums[i]
+
+
+    var maxAverage = sum / k
+
+    for(i in k until nums.size){
+
+        sum += nums[i]
+        sum -= nums[i - k]
+
+        val average = sum / k
+        if(maxAverage < average) maxAverage = average
+    }
+
+    return maxAverage
+}
+
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
+    val nums = intArrayOf(1,12,-5,-6,50,3)
+    val k = 4
+    findMaxAverage(nums, k)
 
-
-    val nums = intArrayOf(1, 0, 1, 0, 1, 1)
-    moveZeroes(nums)
-    println()
-    nums.forEach{ print("$it ") }
-    println()
+//    val nums = intArrayOf(1, 0, 1, 0, 1, 1)
+//    moveZeroes(nums)
+//    println()
+//    nums.forEach{ print("$it ") }
+//    println()
 //    val word1 = "abcd"
 //    val word2 = "pq"
 //    println(mergeAlternately(word1, word2))
