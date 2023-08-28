@@ -3,6 +3,7 @@ package com.ahmrh.test
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import java.lang.Exception
+import java.util.Queue
 import kotlin.math.max
 
 class test {
@@ -872,28 +873,27 @@ fun solveNQueens(n: Int): List<List<String>> {
 fun mergeAlternately(word1: String, word2: String): String {
     val sb = StringBuilder()
 
-    for(i in 0 until Math.min(word1.length, word2.length)){
+    for (i in 0 until Math.min(word1.length, word2.length)) {
         sb.append(word1[i])
         sb.append(word2[i])
     }
 
-    if(word1.length > word2.length)
+    if (word1.length > word2.length)
         sb.append(word1.substring(word2.length))
-
-    else if(word1.length < word2.length)
+    else if (word1.length < word2.length)
         sb.append(word2.substring(word1.length))
 
     return sb.toString()
 }
 
 fun moveZeroes(nums: IntArray): Unit {
-    if(!nums.contains(0)) return
+    if (!nums.contains(0)) return
 
     var j = nums.indexOf(0)
 
-    for(i in j + 1 until nums.size){
+    for (i in j + 1 until nums.size) {
 
-        if(nums[i] != 0){
+        if (nums[i] != 0) {
             j = nums.indexOf(0)
             nums[j] = nums[i]
             nums[i] = 0
@@ -905,38 +905,51 @@ fun moveZeroes(nums: IntArray): Unit {
 fun findMaxAverage(nums: IntArray, k: Int): Double {
 
     var sum = 0.0
-    for(i in 0 until k)
+    for (i in 0 until k)
         sum += nums[i]
 
 
     var maxAverage = sum / k
 
-    for(i in k until nums.size){
+    for (i in k until nums.size) {
 
         sum += nums[i]
         sum -= nums[i - k]
 
         val average = sum / k
-        if(maxAverage < average) maxAverage = average
+        if (maxAverage < average) maxAverage = average
     }
 
     return maxAverage
 }
+
 fun largestAltitude(gain: IntArray): Int {
     var highest = 0
     var altitude = 0
 
-    gain.forEach{
+    gain.forEach {
         altitude += it
-        if(highest < altitude) highest = altitude
+        if (highest < altitude) highest = altitude
     }
 
     return highest
 }
 
+class RecentCounter() {
+    val counter = mutableListOf<Int>()
+    fun ping(t: Int): Int {
+
+        counter.add(t)
+
+        while(t - counter[0] > 3000) counter.removeAt(0)
+
+        return counter.size
+    }
+}
+
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
-    val nums = intArrayOf(1,12,-5,-6,50,3)
+    val nums = intArrayOf(1, 12, -5, -6, 50, 3)
     val k = 4
     findMaxAverage(nums, k)
 
