@@ -3,8 +3,6 @@ package com.ahmrh.test
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import java.lang.Exception
-import java.lang.IndexOutOfBoundsException
-import java.util.Queue
 import kotlin.math.max
 
 class test {
@@ -971,6 +969,16 @@ fun canPlaceFlowers(flowerbed: IntArray, n: Int): Boolean {
 
     return flowers <= 0
 }
+
+fun removeStars(s: String): String {
+    val stack: ArrayDeque<Char> = ArrayDeque()
+    s.forEach{
+        if(it == '*') stack.removeLast()
+        else stack.addLast(it)
+    }
+    return stack.joinToString(separator = "")
+}
+
 
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
