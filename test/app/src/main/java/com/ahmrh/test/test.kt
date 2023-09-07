@@ -1083,14 +1083,52 @@ fun findDifference(nums1: IntArray, nums2: IntArray): List<List<Int>> {
     return listOf(diff1, diff2)
 }
 
+fun guess(num: Int): Int{
+    val pick = 1702766719
+
+    return if(num > pick) -1
+    else if(num < pick) 1
+    else 0
+}
+
+fun guessNumber(n:Int):Int {
+    if(guess(1) == 0) return 1
+    if(guess(n) == 0) return n
+
+    var number = -1
+
+    var guessed = false
+    var a = 1
+    var b = n
+
+    while(!guessed){
+        val c = ((b - a) / 2) + a
+        println("$a $c $b")
+        when(guess(c)){
+            1 -> {
+                a = c
+            }
+            -1 -> {
+                b = c
+            }
+            0 -> {
+                guessed = true
+                number = c
+            }
+        }
+    }
+
+    return number
+}
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
+    guessNumber(2126753390)
 
-    val a = "ABABAB"
-    val b = "ABAB"
-
-    var res = gcdOfStrings(a,b)
-    println(res)
+//    val a = "ABABAB"
+//    val b = "ABAB"
+//
+//    var res = gcdOfStrings(a,b)
+//    println(res)
 
 //    val nums = intArrayOf(1, 12, -5, -6, 50, 3)
 //    val k = 4
