@@ -1120,9 +1120,40 @@ fun guessNumber(n:Int):Int {
 
     return number
 }
+fun tribonacci(n: Int): Int {
+    val table = IntArray(size = n + 1)
+
+    fun t(n: Int): Int{
+
+        if(n == 0) return 0
+        if(n == 1) return 1
+        if(n == 2) return 1
+        if(table[n] != 0) return table[n]
+
+        table[n] = t(n - 1) + t(n - 2) + t(n - 3)
+        return table[n]
+    }
+
+    return t(n)
+}
+
+fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
+    val max = candies.max()
+    val boolArray = mutableListOf<Boolean>()
+
+    candies.forEach{ candy ->
+        boolArray.add(candy + extraCandies >= max)
+    }
+
+    return boolArray
+}
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
-    guessNumber(2126753390)
+
+    val a = tribonacci(36)
+    println(a)
+//    println(a)
+//    guessNumber(2126753390)
 
 //    val a = "ABABAB"
 //    val b = "ABAB"
