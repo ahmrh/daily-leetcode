@@ -1147,11 +1147,55 @@ fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
 
     return boolArray
 }
+
+fun countBits(n: Int): IntArray {
+    val arr = IntArray(size = n+1)
+
+    for(i in arr.indices){
+        arr[i] = Integer.toBinaryString(i).count { it == '1' }
+    }
+
+    return arr
+}
+fun isSubsequence(s: String, t: String): Boolean {
+
+    var i = 0
+    t.forEach{
+        if(i < s.length)
+            if(s[i] == it)
+                i += 1
+    }
+
+    println(i)
+
+    return i == s.length
+}
+fun uniqueOccurrences(arr: IntArray): Boolean {
+    var hashMap = HashMap<Int, Int>()
+
+    arr.forEach{
+        hashMap.put(it, hashMap.get(it)?.plus(1) ?: 1)
+    }
+
+    for(value in hashMap.values){
+        val keys = hashMap.filterValues { it == value }.keys
+        if(keys.size > 1) return false
+    }
+
+    return true
+}
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
 
-    val a = tribonacci(36)
-    println(a)
+    var s = "abc"
+    var t = "ahbgdc"
+
+    println(isSubsequence(s, t))
+
+//    val count = countBits(5)
+//    count.forEach{ println(it) }
+//    val a = tribonacci(36)
+//    println(a)
 //    println(a)
 //    guessNumber(2126753390)
 
