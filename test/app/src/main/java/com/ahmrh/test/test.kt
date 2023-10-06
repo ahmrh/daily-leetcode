@@ -1167,6 +1167,16 @@ fun minCostClimbingStairs(cost: IntArray): Int {
     return min(dp[0], dp[1])
 }
 
+fun singleNumber(nums: IntArray): Int {
+    var number = 0
+
+    nums.forEach{
+        number = number xor it
+    }
+
+    return number
+}
+
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
 
