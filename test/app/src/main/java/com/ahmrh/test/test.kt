@@ -2,8 +2,8 @@ package com.ahmrh.test
 
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.flow
-import java.lang.Exception
 import kotlin.math.max
+import kotlin.math.min
 
 class test {
 
@@ -19,8 +19,7 @@ fun lengthOfLongestSubstring(s: String): Int {
 
         for (i in iterator until s.length) {
             val char = s[i]
-            if (char !in arr)
-                arr.add(char)
+            if (char !in arr) arr.add(char)
             else {
                 arr.clear()
                 break
@@ -187,14 +186,11 @@ fun isValid(s: String): Boolean {
 //    return result
 //}
 
-fun convertTemperature(celsius: Double): DoubleArray =
-    doubleArrayOf(
-        toKelvin(celsius),
-        toFahrenheit(celsius)
-    )
+fun convertTemperature(celsius: Double): DoubleArray = doubleArrayOf(
+    toKelvin(celsius), toFahrenheit(celsius)
+)
 
-val toFahrenheit =
-    { celsius: Double -> celsius * 1.80 + 32.00 }
+val toFahrenheit = { celsius: Double -> celsius * 1.80 + 32.00 }
 val toKelvin = { celsius: Double -> celsius + 273.15 }
 
 class TreeNode(var `val`: Int) {
@@ -276,18 +272,13 @@ fun threeSum(nums: IntArray): List<List<Int>> {
 }
 
 fun checkDistinct(
-    sums: List<List<Int>>,
-    check: List<Int>
+    sums: List<List<Int>>, check: List<Int>
 ): Boolean {
     sums.forEach {
         val sortedSum = it.sorted()
         val sortedCheck = check.sorted()
 
-        if (sortedSum[0] == sortedCheck[0]
-            && sortedSum[1] == sortedCheck[1]
-            && sortedSum[2] == sortedCheck[2]
-        )
-            return false
+        if (sortedSum[0] == sortedCheck[0] && sortedSum[1] == sortedCheck[1] && sortedSum[2] == sortedCheck[2]) return false
     }
 
     return true
@@ -322,8 +313,7 @@ fun countDigits(num: Int): Int {
         val digit = digits % 10
         digits /= 10
 
-        if (num % digit == 0)
-            count += 1
+        if (num % digit == 0) count += 1
 
     }
     return count
@@ -395,18 +385,17 @@ fun isValidSudoku(board: Array<CharArray>): Boolean {
         stack.clear()
     }
 
-    for (i in 0 until 9 step 3)
-        for (j in 0 until 9 step 3) {
-            for (k in i until i + 3) {
-                for (l in j until j + 3) {
-                    if (board[k][l] == '.') continue
+    for (i in 0 until 9 step 3) for (j in 0 until 9 step 3) {
+        for (k in i until i + 3) {
+            for (l in j until j + 3) {
+                if (board[k][l] == '.') continue
 
-                    if (stack.contains(board[k][l])) return false
-                    else stack.add(board[k][l])
-                }
+                if (stack.contains(board[k][l])) return false
+                else stack.add(board[k][l])
             }
-            stack.clear()
         }
+        stack.clear()
+    }
 
     return true
 
@@ -521,10 +510,8 @@ fun isBalanced(root: TreeNode?): Boolean {
 
         if (Math.abs(left - right) > 1) isBalanced = false
 
-        if (left > right)
-            return left + 1
-        else
-            return right + 1
+        if (left > right) return left + 1
+        else return right + 1
     }
     checkBalance(root)
 
@@ -538,11 +525,8 @@ fun canCross(stones: IntArray): Boolean {
     fun cross(index: Int, k: Int): Boolean {
         if (index == stones.size - 1) return true
 
-        if (index == 0 && stones[0] + 1 == stones[1])
-            table[index] =
-                cross(1, 1) ||
-                        cross(1, 0) ||
-                        cross(1, 2)
+        if (index == 0 && stones[0] + 1 == stones[1]) table[index] =
+            cross(1, 1) || cross(1, 0) || cross(1, 2)
 
         if (table[index]) return true
 
@@ -557,9 +541,7 @@ fun canCross(stones: IntArray): Boolean {
         }
 
         table[index] =
-            cross(index + jump, k) ||
-                    cross(index + jump, k - 1) ||
-                    cross(index + jump, k + 1)
+            cross(index + jump, k) || cross(index + jump, k - 1) || cross(index + jump, k + 1)
 
         return table[index]
     }
@@ -592,10 +574,8 @@ fun maxArea(height: IntArray): Int {
     while (i < j) {
         if (area < countArea(i, j)) area = countArea(i, j)
 
-        if (height[i] > height[j])
-            j--
-        else
-            i++
+        if (height[i] > height[j]) j--
+        else i++
     }
 
     return area
@@ -632,8 +612,7 @@ fun longestCommonPrefixFaster(strs: Array<String>): String {
     var prefix = ""
 
     for (i in 0 until Math.min(first.length, last.length)) {
-        if (first[i] != last[i])
-            return prefix
+        if (first[i] != last[i]) return prefix
         prefix += first[i]
     }
 
@@ -744,8 +723,7 @@ fun numIdenticalPairsInteresting(nums: IntArray): Int {
 
 fun strStr(haystack: String, needle: String): Int {
     for (i in 0..haystack.length - needle.length) {
-        if (haystack.substring(i, i + needle.length) == needle)
-            return i
+        if (haystack.substring(i, i + needle.length) == needle) return i
     }
 
     return -1
@@ -829,18 +807,14 @@ fun solveNQueens(n: Int): List<List<String>> {
 
     fun buildString(index: Pair<Int, Int>): String {
         var s = ""
-        for (i in 0 until n)
-            s += if (i == index.second) "Q" else "."
+        for (i in 0 until n) s += if (i == index.second) "Q" else "."
         return s
     }
 
     fun isSafe(index: Pair<Int, Int>): Boolean {
 
         queenIndices.forEach { queenIndex ->
-            if (Math.abs(queenIndex.second - index.second) == Math.abs(queenIndex.first - index.first)
-                || queenIndex.second == index.second
-                || queenIndex.first == index.first
-            ) return false
+            if (Math.abs(queenIndex.second - index.second) == Math.abs(queenIndex.first - index.first) || queenIndex.second == index.second || queenIndex.first == index.first) return false
         }
 
         return true
@@ -877,10 +851,8 @@ fun mergeAlternately(word1: String, word2: String): String {
         sb.append(word2[i])
     }
 
-    if (word1.length > word2.length)
-        sb.append(word1.substring(word2.length))
-    else if (word1.length < word2.length)
-        sb.append(word2.substring(word1.length))
+    if (word1.length > word2.length) sb.append(word1.substring(word2.length))
+    else if (word1.length < word2.length) sb.append(word2.substring(word1.length))
 
     return sb.toString()
 }
@@ -904,8 +876,7 @@ fun moveZeroes(nums: IntArray): Unit {
 fun findMaxAverage(nums: IntArray, k: Int): Double {
 
     var sum = 0.0
-    for (i in 0 until k)
-        sum += nums[i]
+    for (i in 0 until k) sum += nums[i]
 
 
     var maxAverage = sum / k
@@ -940,7 +911,7 @@ class RecentCounter() {
 
         counter.add(t)
 
-        while(t - counter[0] > 3000) counter.removeAt(0)
+        while (t - counter[0] > 3000) counter.removeAt(0)
 
         return counter.size
     }
@@ -948,20 +919,17 @@ class RecentCounter() {
 
 fun canPlaceFlowers(flowerbed: IntArray, n: Int): Boolean {
     var flowers = n
-    fun canPlant(index: Int): Boolean{
-        return if(flowerbed.size == 1) flowerbed[index] == 0
-        else{
-            if(index == 0)
-                flowerbed[1] == 0
-            else if(index == flowerbed.size - 1)
-                flowerbed[index - 1] == 0
-            else
-                flowerbed[index - 1] == 0 && flowerbed[index + 1] == 0
+    fun canPlant(index: Int): Boolean {
+        return if (flowerbed.size == 1) flowerbed[index] == 0
+        else {
+            if (index == 0) flowerbed[1] == 0
+            else if (index == flowerbed.size - 1) flowerbed[index - 1] == 0
+            else flowerbed[index - 1] == 0 && flowerbed[index + 1] == 0
         }
     }
 
-    for(i in flowerbed.indices){
-        if(flowerbed[i] == 0 && canPlant(i)){
+    for (i in flowerbed.indices) {
+        if (flowerbed[i] == 0 && canPlant(i)) {
             flowerbed[i] = 1
             flowers -= 1
         }
@@ -972,8 +940,8 @@ fun canPlaceFlowers(flowerbed: IntArray, n: Int): Boolean {
 
 fun removeStars(s: String): String {
     val stack: ArrayDeque<Char> = ArrayDeque()
-    s.forEach{
-        if(it == '*') stack.removeLast()
+    s.forEach {
+        if (it == '*') stack.removeLast()
         else stack.addLast(it)
     }
     return stack.toString()
@@ -985,31 +953,28 @@ fun deleteMiddle(head: ListNode?): ListNode? {
     var fast = head
     var slowPred = head
 
-    while(fast?.next?.next != null && slow?.next != null){
+    while (fast?.next?.next != null && slow?.next != null) {
         slowPred = slow
         slow = slow.next
         fast = fast.next?.next
     }
 
-    if(fast == slow){
-        if(slow?.next == null) return null
+    if (fast == slow) {
+        if (slow?.next == null) return null
 
         fast?.next = null
         return fast
     }
 
-    if(fast?.next == null)
-        slowPred?.next = slow?.next
-    else
-        slow?.next = slow?.next?.next
+    if (fast?.next == null) slowPred?.next = slow?.next
+    else slow?.next = slow?.next?.next
 
     return head
 }
 
 //using math formula
 fun gcdOfStrings(str1: String, str2: String): String {
-    if(str1 + str2 != str2 + str1)
-        return ""
+    if (str1 + str2 != str2 + str1) return ""
 
 
     var l1 = str1.length
@@ -1027,13 +992,12 @@ fun leafSimilar(root1: TreeNode?, root2: TreeNode?): Boolean {
     var leaf1 = StringBuilder()
     var leaf2 = StringBuilder()
 
-    fun traverse(node: TreeNode?, leaf: StringBuilder){
-        if(node == null) return
+    fun traverse(node: TreeNode?, leaf: StringBuilder) {
+        if (node == null) return
 
         traverse(node?.left, leaf)
 
-        if(node?.left == null && node?.right == null)
-            leaf.append("${node?.`val`} ")
+        if (node?.left == null && node?.right == null) leaf.append("${node?.`val`} ")
 
         traverse(node?.right, leaf)
 
@@ -1042,7 +1006,7 @@ fun leafSimilar(root1: TreeNode?, root2: TreeNode?): Boolean {
     traverse(root1, leaf1)
     traverse(root2, leaf2)
 
-    return leaf1.toString()== leaf2.toString()
+    return leaf1.toString() == leaf2.toString()
 }
 
 fun searchBST(root: TreeNode?, `val`: Int): TreeNode? {
@@ -1050,11 +1014,11 @@ fun searchBST(root: TreeNode?, `val`: Int): TreeNode? {
     var tree: TreeNode? = null
     var found = false
 
-    fun traverse(node: TreeNode?){
-        if(node == null) return
+    fun traverse(node: TreeNode?) {
+        if (node == null) return
 
         traverse(node.left)
-        if(node.`val` == `val` && !found){
+        if (node.`val` == `val` && !found) {
             tree = node
             found = true
         }
@@ -1069,31 +1033,29 @@ fun searchBST(root: TreeNode?, `val`: Int): TreeNode? {
 fun findDifference(nums1: IntArray, nums2: IntArray): List<List<Int>> {
     val diff1 = mutableListOf<Int>()
 
-    nums1.forEach{
-        if(!nums2.contains(it) && !diff1.contains(it))
-            diff1.add(it)
+    nums1.forEach {
+        if (!nums2.contains(it) && !diff1.contains(it)) diff1.add(it)
     }
 
     val diff2 = mutableListOf<Int>()
-    nums2.forEach{
-        if(!nums1.contains(it) && !diff2.contains(it))
-            diff2.add(it)
+    nums2.forEach {
+        if (!nums1.contains(it) && !diff2.contains(it)) diff2.add(it)
     }
 
     return listOf(diff1, diff2)
 }
 
-fun guess(num: Int): Int{
+fun guess(num: Int): Int {
     val pick = 1702766719
 
-    return if(num > pick) -1
-    else if(num < pick) 1
+    return if (num > pick) -1
+    else if (num < pick) 1
     else 0
 }
 
-fun guessNumber(n:Int):Int {
-    if(guess(1) == 0) return 1
-    if(guess(n) == 0) return n
+fun guessNumber(n: Int): Int {
+    if (guess(1) == 0) return 1
+    if (guess(n) == 0) return n
 
     var number = -1
 
@@ -1101,16 +1063,18 @@ fun guessNumber(n:Int):Int {
     var a = 1
     var b = n
 
-    while(!guessed){
+    while (!guessed) {
         val c = ((b - a) / 2) + a
         println("$a $c $b")
-        when(guess(c)){
+        when (guess(c)) {
             1 -> {
                 a = c
             }
+
             -1 -> {
                 b = c
             }
+
             0 -> {
                 guessed = true
                 number = c
@@ -1120,15 +1084,16 @@ fun guessNumber(n:Int):Int {
 
     return number
 }
+
 fun tribonacci(n: Int): Int {
     val table = IntArray(size = n + 1)
 
-    fun t(n: Int): Int{
+    fun t(n: Int): Int {
 
-        if(n == 0) return 0
-        if(n == 1) return 1
-        if(n == 2) return 1
-        if(table[n] != 0) return table[n]
+        if (n == 0) return 0
+        if (n == 1) return 1
+        if (n == 2) return 1
+        if (table[n] != 0) return table[n]
 
         table[n] = t(n - 1) + t(n - 2) + t(n - 3)
         return table[n]
@@ -1141,7 +1106,7 @@ fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
     val max = candies.max()
     val boolArray = mutableListOf<Boolean>()
 
-    candies.forEach{ candy ->
+    candies.forEach { candy ->
         boolArray.add(candy + extraCandies >= max)
     }
 
@@ -1149,48 +1114,69 @@ fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
 }
 
 fun countBits(n: Int): IntArray {
-    val arr = IntArray(size = n+1)
+    val arr = IntArray(size = n + 1)
 
-    for(i in arr.indices){
+    for (i in arr.indices) {
         arr[i] = Integer.toBinaryString(i).count { it == '1' }
     }
 
     return arr
 }
+
 fun isSubsequence(s: String, t: String): Boolean {
 
     var i = 0
-    t.forEach{
-        if(i < s.length)
-            if(s[i] == it)
-                i += 1
+    t.forEach {
+        if (i < s.length) if (s[i] == it) i += 1
     }
 
     println(i)
 
     return i == s.length
 }
+
 fun uniqueOccurrences(arr: IntArray): Boolean {
     var hashMap = HashMap<Int, Int>()
 
-    arr.forEach{
+    arr.forEach {
         hashMap.put(it, hashMap.get(it)?.plus(1) ?: 1)
     }
 
-    for(value in hashMap.values){
+    for (value in hashMap.values) {
         val keys = hashMap.filterValues { it == value }.keys
-        if(keys.size > 1) return false
+        if (keys.size > 1) return false
     }
 
     return true
 }
+
+fun minCostClimbingStairs(cost: IntArray): Int {
+    val dp = IntArray(cost.size)
+
+    fun recurse(index: Int): Int{
+        if(index >= cost.size) return 0
+        if(dp[index] != 0) return dp[index]
+
+        dp[index] = cost[index] + min(recurse(index + 1), recurse(index + 2))
+
+        return dp[index]
+    }
+
+    recurse(0)
+
+    return min(dp[0], dp[1])
+}
+
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
 
-    var s = "abc"
-    var t = "ahbgdc"
+    val cost = intArrayOf(1, 100, 1, 1, 1, 100, 1, 1, 100, 1)
+    println(minCostClimbingStairs(cost))
 
-    println(isSubsequence(s, t))
+//    var s = "abc"
+//    var t = "ahbgdc"
+//
+//    println(isSubsequence(s, t))
 
 //    val count = countBits(5)
 //    count.forEach{ println(it) }
