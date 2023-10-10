@@ -1196,11 +1196,36 @@ fun reverseList(head: ListNode?): ListNode? {
     return reversedHead.next
 }
 
+fun maxVowels(s: String, k: Int): Int {
+    val vowels = setOf('a', 'e', 'i', 'o', 'u')
+    var max = s.substring(0, k).count{ it in vowels}
+    var count = max
+
+    for(i in k until s.length){
+        if(s[i - k] in vowels){
+            count --
+        }
+        if(s[i] in vowels){
+            count ++
+        }
+        max = maxOf(max, count)
+    }
+
+    return max
+}
+
+
+
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
 
-    val cost = intArrayOf(1, 100, 1, 1, 1, 100, 1, 1, 100, 1)
-    println(minCostClimbingStairs(cost))
+
+    var s = "abciiidef"
+    var k = 3
+
+    println(maxVowels(s, k))
+//    val cost = intArrayOf(1, 100, 1, 1, 1, 100, 1, 1, 100, 1)
+//    println(minCostClimbingStairs(cost))
 
 //    var s = "abc"
 //    var t = "ahbgdc"
