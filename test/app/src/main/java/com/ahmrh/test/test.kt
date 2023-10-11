@@ -1214,16 +1214,22 @@ fun maxVowels(s: String, k: Int): Int {
     return max
 }
 
+fun reverseWords(s: String): String {
+    return s.split(" ").filter{ it.isNotBlank() }.reversed().joinToString(" ")
+}
 
 
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
 
+    val a = reverseWords("  hello world  ")
+    println(a)
 
-    var s = "abciiidef"
-    var k = 3
 
-    println(maxVowels(s, k))
+//    var s = "abciiidef"
+//    var k = 3
+//
+//    println(maxVowels(s, k))
 //    val cost = intArrayOf(1, 100, 1, 1, 1, 100, 1, 1, 100, 1)
 //    println(minCostClimbingStairs(cost))
 
