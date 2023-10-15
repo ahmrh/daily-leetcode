@@ -1153,9 +1153,9 @@ fun uniqueOccurrences(arr: IntArray): Boolean {
 fun minCostClimbingStairs(cost: IntArray): Int {
     val dp = IntArray(cost.size)
 
-    fun recurse(index: Int): Int{
-        if(index >= cost.size) return 0
-        if(dp[index] != 0) return dp[index]
+    fun recurse(index: Int): Int {
+        if (index >= cost.size) return 0
+        if (dp[index] != 0) return dp[index]
 
         dp[index] = cost[index] + min(recurse(index + 1), recurse(index + 2))
 
@@ -1170,7 +1170,7 @@ fun minCostClimbingStairs(cost: IntArray): Int {
 fun singleNumber(nums: IntArray): Int {
     var number = 0
 
-    nums.forEach{
+    nums.forEach {
         number = number xor it
     }
 
@@ -1182,8 +1182,8 @@ fun reverseList(head: ListNode?): ListNode? {
     val reversedHead = ListNode(-1)
     var reversed: ListNode? = reversedHead
 
-    fun recurse(node: ListNode?){
-        if(node == null) return
+    fun recurse(node: ListNode?) {
+        if (node == null) return
 
         recurse(node.next)
 
@@ -1198,15 +1198,15 @@ fun reverseList(head: ListNode?): ListNode? {
 
 fun maxVowels(s: String, k: Int): Int {
     val vowels = setOf('a', 'e', 'i', 'o', 'u')
-    var max = s.substring(0, k).count{ it in vowels}
+    var max = s.substring(0, k).count { it in vowels }
     var count = max
 
-    for(i in k until s.length){
-        if(s[i - k] in vowels){
-            count --
+    for (i in k until s.length) {
+        if (s[i - k] in vowels) {
+            count--
         }
-        if(s[i] in vowels){
-            count ++
+        if (s[i] in vowels) {
+            count++
         }
         max = maxOf(max, count)
     }
@@ -1214,10 +1214,32 @@ fun maxVowels(s: String, k: Int): Int {
     return max
 }
 
-fun reverseWords(s: String): String {
-    return s.split(" ").filter{ it.isNotBlank() }.reversed().joinToString(" ")
-}
+fun reverseWords(s: String): String =
+    s.split(" ")
+        .filter { it.isNotBlank() }
+        .reversed()
+        .joinToString(" ")
 
+
+fun productExceptSelf(nums: IntArray): IntArray {
+    val n = nums.size
+    val answer = IntArray(n)
+
+    var leftProduct = 1
+    var rightProduct = 1
+
+    for(i in 0 until n){
+        answer[i] = leftProduct
+        leftProduct *= nums[i]
+    }
+
+    for(i in n - 1 downTo 0){
+        answer[i] *= rightProduct
+        rightProduct *= nums[i]
+    }
+
+    return answer
+}
 
 @OptIn(DelicateCoroutinesApi::class)
 fun main(args: Array<String>) {
