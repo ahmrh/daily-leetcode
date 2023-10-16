@@ -564,22 +564,22 @@ class ParkingSystem(big: Int, medium: Int, small: Int) {
 }
 
 
-fun maxArea(height: IntArray): Int {
-    var i = 0
-    var j = height.size - 1
-    var area = 0
-
-    fun countArea(a: Int, b: Int) = Math.min(height[a], height[b]) * (b - a)
-
-    while (i < j) {
-        if (area < countArea(i, j)) area = countArea(i, j)
-
-        if (height[i] > height[j]) j--
-        else i++
-    }
-
-    return area
-}
+//fun maxArea(height: IntArray): Int {
+//    var i = 0
+//    var j = height.size - 1
+//    var area = 0
+//
+//    fun countArea(a: Int, b: Int) = Math.min(height[a], height[b]) * (b - a)
+//
+//    while (i < j) {
+//        if (area < countArea(i, j)) area = countArea(i, j)
+//
+//        if (height[i] > height[j]) j--
+//        else i++
+//    }
+//
+//    return area
+//}
 
 
 fun longestCommonPrefix(strs: Array<String>): String {
@@ -1123,17 +1123,17 @@ fun countBits(n: Int): IntArray {
     return arr
 }
 
-fun isSubsequence(s: String, t: String): Boolean {
-
-    var i = 0
-    t.forEach {
-        if (i < s.length) if (s[i] == it) i += 1
-    }
-
-    println(i)
-
-    return i == s.length
-}
+//fun isSubsequence(s: String, t: String): Boolean {
+//
+//    var i = 0
+//    t.forEach {
+//        if (i < s.length) if (s[i] == it) i += 1
+//    }
+//
+//    println(i)
+//
+//    return i == s.length
+//}
 
 fun uniqueOccurrences(arr: IntArray): Boolean {
     var hashMap = HashMap<Int, Int>()
@@ -1239,6 +1239,37 @@ fun productExceptSelf(nums: IntArray): IntArray {
     }
 
     return answer
+}
+
+fun isSubsequence(s: String, t: String): Boolean {
+    var i = 0
+    t.forEach{
+        if(i < s.length)
+            if(s[i] == it) i += 1
+    }
+
+    return i == s.length
+}
+
+fun maxArea(height: IntArray): Int {
+
+    var max = 0
+
+    var a = 0
+    var b = height.size - 1
+
+    while(a < b){
+        val area = Math.min(height[a], height[b]) * (a - b)
+        if(area > max) max = area
+
+        println(area)
+
+        if(height[a] > height[b]) b --
+        else a ++
+    }
+
+    return max
+
 }
 
 @OptIn(DelicateCoroutinesApi::class)
