@@ -2,6 +2,9 @@ package com.ahmrh.test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 public class Solution {
@@ -48,4 +51,25 @@ public class Solution {
     int sumOfArray(int[] arr){
         return Arrays.stream(arr).sum();
     }
+
+    public boolean increasingTriplet(int[] nums) {
+        int x = Integer.MAX_VALUE;
+        int y = Integer.MAX_VALUE;
+
+        for(int num: nums){
+            if(num <= x) {
+                x = num;
+            } else if(num <= y){
+                y = num;
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+
+
 }
