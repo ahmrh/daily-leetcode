@@ -82,6 +82,34 @@ public class Solution {
         int mid = nums.length / 2;
         return nums[mid];
     }
+    public int maxProfit(int[] prices) {
+
+        int max = 0;
+
+        for(int i = 1, cheapest = prices[0]; i < prices.length; i++){
+            if(prices[i] < cheapest)
+                cheapest = prices[i];
+            else{
+                int profit = prices[i] - cheapest;
+
+                if(profit > max) max = profit;
+            }
+        }
+
+        return max;
+
+    }
+
+    public boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+
+        String str = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        sb.append(str);
+
+        return sb.toString().equals(sb.reverse().toString());
+
+    }
     public static void main(String[] args) {
         int[] nums = new int[] {3,2,3};
         int a = majorityElement(nums);
