@@ -85,9 +85,9 @@ fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
 
 }
 
-class ListNode(var `val`: Int) {
-    var next: ListNode? = null
-}
+//class ListNode(var `val`: Int) {
+//    var next: ListNode? = null
+//}
 
 
 fun climbStairs(n: Int): Int {

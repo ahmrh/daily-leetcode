@@ -1,5 +1,6 @@
 package com.ahmrh.test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -110,6 +111,28 @@ public class Solution {
         return sb.toString().equals(sb.reverse().toString());
 
     }
+
+    public boolean hasCycle(ListNode head) {
+        if (head == null) return false;
+
+        ArrayList<ListNode> pointerArray = new ArrayList<ListNode>();
+
+        ListNode curr = head;
+
+        while(curr.next != null){
+            if(!pointerArray.contains(curr))
+                pointerArray.add(curr);
+            else
+                return true;
+
+            curr = curr.next;
+        }
+
+        return false;
+
+
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[] {3,2,3};
         int a = majorityElement(nums);
