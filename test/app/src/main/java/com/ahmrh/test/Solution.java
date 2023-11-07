@@ -130,9 +130,22 @@ public class Solution {
 
         return false;
 
-
     }
 
+    public int lengthOfLastWord(String s) {
+        s = s.trim();
+
+        int length = 0;
+
+        for(int i = s.length() - 1; i >= 0; i --){
+            if(s.charAt(i) == ' ')
+                break;
+
+            length ++;
+        }
+
+        return length;
+    }
     public static void main(String[] args) {
         int[] nums = new int[] {3,2,3};
         int a = majorityElement(nums);
