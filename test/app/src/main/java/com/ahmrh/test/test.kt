@@ -193,10 +193,10 @@ fun convertTemperature(celsius: Double): DoubleArray = doubleArrayOf(
 val toFahrenheit = { celsius: Double -> celsius * 1.80 + 32.00 }
 val toKelvin = { celsius: Double -> celsius + 273.15 }
 
-class TreeNode(var `val`: Int) {
-    var left: TreeNode? = null
-    var right: TreeNode? = null
-}
+//class TreeNode(var `val`: Int) {
+//    var left: TreeNode? = null
+//    var right: TreeNode? = null
+//}
 
 fun isSymmetric(root: TreeNode?): Boolean {
 

@@ -146,6 +146,23 @@ public class Solution {
 
         return length;
     }
+
+    public int maxDepth(TreeNode node) {
+        if(node == null) return 0;
+
+        return Math.max(maxDepth(node.left), maxDepth(node.right)) + 1;
+
+    }
+
+    public long coloredCells(int n) {
+        Double ans = Math.pow(n, 2) + Math.pow(n - 1, 2);
+        return ans.longValue();
+    }
+
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+        for()
+
+    }
     public static void main(String[] args) {
         int[] nums = new int[] {3,2,3};
         int a = majorityElement(nums);
