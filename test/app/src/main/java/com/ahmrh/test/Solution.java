@@ -2,6 +2,7 @@ package com.ahmrh.test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Stack;
 
 public class Solution {
@@ -159,9 +160,19 @@ public class Solution {
         return ans.longValue();
     }
 
-    public int maximumUnits(int[][] boxTypes, int truckSize) {
-        for()
+    public boolean canConstruct(String ransomNote, String magazine) {
+        HashMap<Character, Integer> hashMap = new HashMap();
 
+        for(char c: magazine.toCharArray()){
+            hashMap.put(c, hashMap.getOrDefault(c, 0) + 1);
+        }
+
+        for(char c: ransomNote.toCharArray()){
+            if(!hashMap.containsKey(c) || hashMap.get(c) < 1) return false;
+            hashMap.put(c, hashMap.get(c) - 1);
+        }
+
+        return true;
     }
     public static void main(String[] args) {
         int[] nums = new int[] {3,2,3};
