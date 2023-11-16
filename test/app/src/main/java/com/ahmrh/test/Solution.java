@@ -174,9 +174,39 @@ public class Solution {
 
         return true;
     }
+
+    public String simplifyPath(String path) {
+        path.replaceAll("//", "/");
+        String[] dirs = path.split("/");
+
+        Stack<String> stack = new Stack();
+
+        for(String dir: dirs) {
+            switch(dir){
+                case "":
+                case ".":
+                    continue;
+                case "..": {
+                    if(!stack.isEmpty()) stack.pop();
+                    break;
+                }
+                default: stack.push(dir);
+            }
+        }
+
+        if(stack.isEmpty()) return "/";
+
+        StringBuilder sb = new StringBuilder();
+        for(String str: stack){
+            sb.append("/" + str);
+        }
+
+        return sb.toString();
+
+    }
+
     public static void main(String[] args) {
-        int[] nums = new int[] {3,2,3};
-        int a = majorityElement(nums);
-        System.out.println(a);
+
+
     }
 }
