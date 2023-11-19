@@ -3,6 +3,7 @@ package com.ahmrh.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 public class Solution {
@@ -203,6 +204,80 @@ public class Solution {
 
         return sb.toString();
 
+    }
+
+    public List<String> summaryRanges(int[] nums) {
+        ArrayList<String> ranges = new ArrayList();
+
+        for(int i = 0; i < nums.length; i++){
+            int start = nums[i];
+
+            while(i + 1 < nums.length && nums[i] + 1 != nums[i + 1])
+                i ++;
+
+            if(start != nums[i])
+                ranges.add("" + start + "->" + nums[i]);
+            else
+                ranges.add(String.valueOf(start));
+        }
+
+        return ranges;
+    }
+
+
+    public String makeFancyString(String s) {
+        StringBuilder sb = new StringBuilder();
+
+        char c = s.charAt(0);
+        String s1 = "" + c;
+
+        for(int i = 1; i < s.length(); i++){
+            char c1 = s.charAt(i);
+            if(c == c1){
+                s1 += c1;
+            } else{
+                if(s1.length() > 2){
+                    sb.append("" + c + c);
+                } else{
+                    sb.append(s1);
+                }
+                c = s.charAt(i);
+                s1 = "" + c;
+            }
+        }
+
+        if(s1.length() > 2){
+            sb.append("" + c + c);
+        } else{
+            sb.append(s1);
+        }
+        return sb.toString();
+    }
+
+
+    public boolean validMountainArray(int[] arr) {
+        boolean inc = false, dec = false;
+        int index = 0;
+
+        while(index < arr.length){
+            if(arr[index - 1] < arr[index])
+                inc = true;
+            else
+                break;
+
+            index ++;
+        }
+
+        while(index < arr.length){
+            if(arr[index - 1] > arr[index])
+                dec = true;
+            else
+                break;
+
+            index ++;
+        }
+
+        return inc == dec && index == arr.length;
     }
 
     public static void main(String[] args) {
