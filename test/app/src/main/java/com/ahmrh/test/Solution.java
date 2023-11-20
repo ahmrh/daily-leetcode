@@ -280,6 +280,27 @@ public class Solution {
         return inc == dec && index == arr.length;
     }
 
+    public boolean isValidSerialization(String preorder) {
+        if(preorder == null) return false;
+
+        String[] values = preorder.split(",");
+        Stack<String> stack = new Stack();
+
+        for(String value: values){
+            while(value.equals("#") && !stack.isEmpty() && stack.peek().equals(value)){
+                stack.pop();
+                if(stack.isEmpty()) return false;
+                stack.pop();
+
+            }
+            stack.push(value);
+        }
+
+        System.out.println(stack);
+
+        return stack.size() == 1 && stack.peek().equals("#");
+    }
+
     public static void main(String[] args) {
 
 
