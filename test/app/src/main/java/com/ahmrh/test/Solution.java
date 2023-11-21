@@ -301,6 +301,40 @@ public class Solution {
         return stack.size() == 1 && stack.peek().equals("#");
     }
 
+    public int minSubArrayLen(int target, int[] nums) {
+
+        if(nums == null || nums.length == 0 ) return 0;
+
+        int i = 0, j = 0 , sum = 0 , min = Integer.MAX_VALUE;
+        while(j < nums.length){
+            sum += nums[j++];
+            while(sum >= target){
+                min = Math.min(min, j - i); //(old j) - i + 1 = j - i
+                sum -= nums[i++];
+            }
+        }
+        return min == Integer.MAX_VALUE ? 0 : min;
+    }
+
+    public int sumOfMultiples(int n) {
+        int sum = 0;
+        for(int i = 1; i < n; i++){
+            if(i % 3 == 0 || i % 5 == 0 || i % 7 == 0)
+                sum += i;
+        }
+
+        return sum;
+    }
+
+    public boolean isAnagram(String s, String t) {
+        char[] arr1 = s.toCharArray();
+        char[] arr2 = t.toCharArray();
+
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+
+        return Arrays.equals(arr1, arr2);
+    }
     public static void main(String[] args) {
 
 
