@@ -335,6 +335,45 @@ public class Solution {
 
         return Arrays.equals(arr1, arr2);
     }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ArrayList<Integer> arrayList = new ArrayList();
+
+        ListNode curr = head;
+        while(curr != null){
+            arrayList.add(curr.val);
+            curr = curr.next;
+        }
+        System.out.println(arrayList);
+
+        arrayList.remove(arrayList.size() - n);
+
+        ListNode newHead = new ListNode(arrayList.get(0));
+        ListNode newCurr = newHead;
+
+        for(int i = 1; i < arrayList.size(); i++){
+            newCurr.next = new ListNode(arrayList.get(i));
+            newCurr = newCurr.next;
+        }
+
+        return newHead;
+
+    }
+
+    public int minMovesToSeat(int[] seats, int[] students) {
+
+        Arrays.sort(seats);
+        Arrays.sort(students);
+
+        int sum = 0;
+        for(int i = 0; i < seats.length; i++){
+            sum += Math.abs(seats[i] - students[i]);
+        }
+
+        return sum;
+
+    }
+
     public static void main(String[] args) {
 
 
