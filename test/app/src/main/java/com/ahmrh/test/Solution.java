@@ -85,17 +85,18 @@ public class Solution {
         int mid = nums.length / 2;
         return nums[mid];
     }
+
     public int maxProfit(int[] prices) {
 
         int max = 0;
 
-        for(int i = 1, cheapest = prices[0]; i < prices.length; i++){
-            if(prices[i] < cheapest)
+        for (int i = 1, cheapest = prices[0]; i < prices.length; i++) {
+            if (prices[i] < cheapest)
                 cheapest = prices[i];
-            else{
+            else {
                 int profit = prices[i] - cheapest;
 
-                if(profit > max) max = profit;
+                if (profit > max) max = profit;
             }
         }
 
@@ -121,8 +122,8 @@ public class Solution {
 
         ListNode curr = head;
 
-        while(curr.next != null){
-            if(!pointerArray.contains(curr))
+        while (curr.next != null) {
+            if (!pointerArray.contains(curr))
                 pointerArray.add(curr);
             else
                 return true;
@@ -139,18 +140,18 @@ public class Solution {
 
         int length = 0;
 
-        for(int i = s.length() - 1; i >= 0; i --){
-            if(s.charAt(i) == ' ')
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == ' ')
                 break;
 
-            length ++;
+            length++;
         }
 
         return length;
     }
 
     public int maxDepth(TreeNode node) {
-        if(node == null) return 0;
+        if (node == null) return 0;
 
         return Math.max(maxDepth(node.left), maxDepth(node.right)) + 1;
 
@@ -164,12 +165,12 @@ public class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
         HashMap<Character, Integer> hashMap = new HashMap();
 
-        for(char c: magazine.toCharArray()){
+        for (char c : magazine.toCharArray()) {
             hashMap.put(c, hashMap.getOrDefault(c, 0) + 1);
         }
 
-        for(char c: ransomNote.toCharArray()){
-            if(!hashMap.containsKey(c) || hashMap.get(c) < 1) return false;
+        for (char c : ransomNote.toCharArray()) {
+            if (!hashMap.containsKey(c) || hashMap.get(c) < 1) return false;
             hashMap.put(c, hashMap.get(c) - 1);
         }
 
@@ -182,23 +183,24 @@ public class Solution {
 
         Stack<String> stack = new Stack();
 
-        for(String dir: dirs) {
-            switch(dir){
+        for (String dir : dirs) {
+            switch (dir) {
                 case "":
                 case ".":
                     continue;
                 case "..": {
-                    if(!stack.isEmpty()) stack.pop();
+                    if (!stack.isEmpty()) stack.pop();
                     break;
                 }
-                default: stack.push(dir);
+                default:
+                    stack.push(dir);
             }
         }
 
-        if(stack.isEmpty()) return "/";
+        if (stack.isEmpty()) return "/";
 
         StringBuilder sb = new StringBuilder();
-        for(String str: stack){
+        for (String str : stack) {
             sb.append("/" + str);
         }
 
@@ -209,13 +211,13 @@ public class Solution {
     public List<String> summaryRanges(int[] nums) {
         ArrayList<String> ranges = new ArrayList();
 
-        for(int i = 0; i < nums.length; i++){
+        for (int i = 0; i < nums.length; i++) {
             int start = nums[i];
 
-            while(i + 1 < nums.length && nums[i] + 1 != nums[i + 1])
-                i ++;
+            while (i + 1 < nums.length && nums[i] + 1 != nums[i + 1])
+                i++;
 
-            if(start != nums[i])
+            if (start != nums[i])
                 ranges.add("" + start + "->" + nums[i]);
             else
                 ranges.add(String.valueOf(start));
@@ -231,14 +233,14 @@ public class Solution {
         char c = s.charAt(0);
         String s1 = "" + c;
 
-        for(int i = 1; i < s.length(); i++){
+        for (int i = 1; i < s.length(); i++) {
             char c1 = s.charAt(i);
-            if(c == c1){
+            if (c == c1) {
                 s1 += c1;
-            } else{
-                if(s1.length() > 2){
+            } else {
+                if (s1.length() > 2) {
                     sb.append("" + c + c);
-                } else{
+                } else {
                     sb.append(s1);
                 }
                 c = s.charAt(i);
@@ -246,9 +248,9 @@ public class Solution {
             }
         }
 
-        if(s1.length() > 2){
+        if (s1.length() > 2) {
             sb.append("" + c + c);
-        } else{
+        } else {
             sb.append(s1);
         }
         return sb.toString();
@@ -259,37 +261,37 @@ public class Solution {
         boolean inc = false, dec = false;
         int index = 0;
 
-        while(index < arr.length){
-            if(arr[index - 1] < arr[index])
+        while (index < arr.length) {
+            if (arr[index - 1] < arr[index])
                 inc = true;
             else
                 break;
 
-            index ++;
+            index++;
         }
 
-        while(index < arr.length){
-            if(arr[index - 1] > arr[index])
+        while (index < arr.length) {
+            if (arr[index - 1] > arr[index])
                 dec = true;
             else
                 break;
 
-            index ++;
+            index++;
         }
 
         return inc == dec && index == arr.length;
     }
 
     public boolean isValidSerialization(String preorder) {
-        if(preorder == null) return false;
+        if (preorder == null) return false;
 
         String[] values = preorder.split(",");
         Stack<String> stack = new Stack();
 
-        for(String value: values){
-            while(value.equals("#") && !stack.isEmpty() && stack.peek().equals(value)){
+        for (String value : values) {
+            while (value.equals("#") && !stack.isEmpty() && stack.peek().equals(value)) {
                 stack.pop();
-                if(stack.isEmpty()) return false;
+                if (stack.isEmpty()) return false;
                 stack.pop();
 
             }
@@ -303,12 +305,12 @@ public class Solution {
 
     public int minSubArrayLen(int target, int[] nums) {
 
-        if(nums == null || nums.length == 0 ) return 0;
+        if (nums == null || nums.length == 0) return 0;
 
-        int i = 0, j = 0 , sum = 0 , min = Integer.MAX_VALUE;
-        while(j < nums.length){
+        int i = 0, j = 0, sum = 0, min = Integer.MAX_VALUE;
+        while (j < nums.length) {
             sum += nums[j++];
-            while(sum >= target){
+            while (sum >= target) {
                 min = Math.min(min, j - i); //(old j) - i + 1 = j - i
                 sum -= nums[i++];
             }
@@ -318,8 +320,8 @@ public class Solution {
 
     public int sumOfMultiples(int n) {
         int sum = 0;
-        for(int i = 1; i < n; i++){
-            if(i % 3 == 0 || i % 5 == 0 || i % 7 == 0)
+        for (int i = 1; i < n; i++) {
+            if (i % 3 == 0 || i % 5 == 0 || i % 7 == 0)
                 sum += i;
         }
 
@@ -340,7 +342,7 @@ public class Solution {
         ArrayList<Integer> arrayList = new ArrayList();
 
         ListNode curr = head;
-        while(curr != null){
+        while (curr != null) {
             arrayList.add(curr.val);
             curr = curr.next;
         }
@@ -351,7 +353,7 @@ public class Solution {
         ListNode newHead = new ListNode(arrayList.get(0));
         ListNode newCurr = newHead;
 
-        for(int i = 1; i < arrayList.size(); i++){
+        for (int i = 1; i < arrayList.size(); i++) {
             newCurr.next = new ListNode(arrayList.get(i));
             newCurr = newCurr.next;
         }
@@ -366,7 +368,7 @@ public class Solution {
         Arrays.sort(students);
 
         int sum = 0;
-        for(int i = 0; i < seats.length; i++){
+        for (int i = 0; i < seats.length; i++) {
             sum += Math.abs(seats[i] - students[i]);
         }
 
@@ -374,19 +376,15 @@ public class Solution {
 
     }
 
-    public static void main(String[] args) {
-
-
-    }
 
     public List<List<Integer>> minimumAbsDifference(int[] arr) {
         int min = Integer.MAX_VALUE;
 
-        for(int i = 1; i < arr.length; i++){
+        for (int i = 1; i < arr.length; i++) {
             int a = Math.min(arr[i - 1], arr[i]);
             int b = Math.max(arr[i - 1], arr[i]);
             int diff = b - a;
-            if(diff < min) min = diff;
+            if (diff < min) min = diff;
         }
 
         Arrays.sort(arr);
@@ -395,17 +393,329 @@ public class Solution {
         ArrayList<List<Integer>> output = new ArrayList();
 
 
-        for(int i = 1; i < arr.length; i++){
+        for (int i = 1; i < arr.length; i++) {
             int a = arr[i - 1];
             int b = arr[i];
             int diff = b - a;
 
-            if(diff == min) output.add(Arrays.asList(a, b));
+            if (diff == min) output.add(Arrays.asList(a, b));
         }
 
 
         return output;
     }
 
-    
+
+    public int climbStairs(int n) {
+        if (n == 1) return 1;
+        return climbStairs(n - 1) + climbStairs()
+
+    }
+
+//    private int goodStringCounter = 0;
+//
+//    private final HashMap<String, String> hashMap = new HashMap<>();
+//
+//    public int countGoodStrings(int low, int high, int zero, int one) {
+//
+//        hashMap.put("zero ", buildGoodString(zero, "0"));
+//        hashMap.put("one ", buildGoodString(one, "1"));
+//
+//        StringBuilder keyBuilder = new StringBuilder();
+//
+//        goodStringRecursion(low, high, zero, one, keyBuilder);
+//
+//        return goodStringCounter;
+//    }
+//
+//    private void goodStringRecursion(int low, int high, int zero, int one, StringBuilder keyBuilder) {
+//        String key = keyBuilder.toString();
+//
+//        StringBuilder sb = new StringBuilder();
+//
+//        if(hashMap.containsKey(key)){
+//            sb.append(hashMap.get(key));
+//        } else {
+//            String[] arr = key.split(" ");
+//            for(String i: arr){
+//                sb.append(i);
+//            }
+//        }
+//
+//        if(low <= sb.length() && sb.length() <= high){
+//            goodStringCounter += 1;
+//            keyBuilder.delete(keyBuilder.lastIndexOf(" "), keyBuilder.length());
+//            return;
+//        }
+//
+//        String key0 = key += "zero ";
+//        String[] arr = key.split(" ");
+//        for(String key)
+//
+//        goodStringRecursion(low, high, zero, one, key += "zero ");
+//        goodStringRecursion(low, high, zero, one, key += "one ");
+//
+//    }
+//
+//
+//    private String buildGoodString(int n, String s) {
+//        return String.format("%0" + n + "d", 0).replace("0", s);
+//    }
+
+
+    public int countGoodStrings(int low, int high, int zero, int one) {
+        final int kMod = 1_000_000_007;
+        int ans = 0;
+        // dp[i] := # of good strings with length i
+        int[] dp = new int[high + 1];
+        dp[0] = 1;
+
+        for (int i = 1; i <= high; ++i) {
+            if (i >= zero)
+                dp[i] = (dp[i] + dp[i - zero]) % kMod;
+            if (i >= one)
+                dp[i] = (dp[i] + dp[i - one]) % kMod;
+            if (i >= low)
+                ans = (ans + dp[i]) % kMod;
+        }
+
+        return ans;
+
+
+    }
+
+    public List<List<Integer>> shiftGrid(int[][] grid, int k) {
+        int size0 = grid.length;
+        int size1 = grid[0].length;
+
+
+        // break into 1d array
+        int index = 0;
+
+        int[] arr = new int[size0 * size1];
+        for (int i = 0; i < size0; i++) {
+            for (int j = 0; j < size1; j++) {
+                arr[index] = grid[i][j];
+                index += 1;
+            }
+        }
+
+
+        int shift = k % (size0 * size1);
+
+        int[] shifted = arr.clone();
+
+        for (int i = 0; i < shifted.length; i++) {
+            System.out.print(shifted[i]);
+
+            if (i - shift < 0)
+                shifted[i] = arr[shifted.length + (i - shift)];
+            else
+                shifted[i] = arr[i - shift];
+
+            System.out.println(shifted[i]);
+        }
+
+
+        // build back into 2d array
+        index = 0;
+
+        List<List<Integer>> shiftedGrid = new ArrayList<>();
+        for (int i = 0; i < size0; i++) {
+            List<Integer> list = new ArrayList<>();
+            for (int j = 0; j < size1; j++) {
+                list.add(shifted[index]);
+                index += 1;
+            }
+            shiftedGrid.add(list);
+        }
+
+        return shiftedGrid;
+
+    }
+
+
+    public int sumOfLeftLeaves(TreeNode root) {
+        return sumOfLeftLeavesRecursion(null, root, false);
+
+    }
+
+    private int sumOfLeftLeavesRecursion(TreeNode parent, TreeNode node, Boolean isLeft) {
+        if (node == null) return 0;
+        if (node.left == null && node.right == null && parent != null && isLeft)
+            return node.val;
+
+        int left = sumOfLeftLeavesRecursion(node, node.left, true);
+        int right = sumOfLeftLeavesRecursion(node, node.right, false);
+
+        return left + right;
+    }
+
+    public int[] getConcatenation(int[] nums) {
+        int size = nums.length;
+
+        int[] ans = new int[size * 2];
+
+        for (int i = 0; i < size; i++) {
+            int num = nums[i];
+
+            ans[i] = num;
+            ans[size + i] = num;
+        }
+
+        return ans;
+    }
+
+    public String defangIPaddr(String address) {
+        System.out.println(address);
+        return address.replaceAll(".", "[.]");
+    }
+
+    public int minPartitions(String n) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < n.length(); i++) {
+            int num = Character.getNumericValue(n.charAt(i));
+            if (max < num) {
+                max = num;
+            }
+        }
+
+        return max;
+
+    }
+
+
+    public int finalValueAfterOperations(String[] operations) {
+
+        int x = 0;
+        for (String operation : operations) {
+            switch (operation) {
+                case "--X":
+                    --x;
+                case "X--":
+                    x--;
+                case "X++":
+                    x++;
+                case "++X":
+                    ++x;
+            }
+        }
+
+        return x;
+    }
+
+    public int[] findArray(int[] pref) {
+        int[] output = new int[pref.length];
+
+        for (int i = 0, res = 0; i < pref.length; i++) {
+            output[i] = res ^ pref[i];
+            System.out.print(res + "^" + pref[i]);
+
+            res ^= pref[i];
+            System.out.println(" = " + res);
+        }
+
+        return output;
+
+
+    }
+
+    public int numJewelsInStones(String jewels, String stones) {
+        int count = 0;
+
+        for (char c : stones.toCharArray()) {
+            if (jewels.indexOf(c) != -1)
+                count++;
+        }
+
+        return count;
+
+    }
+
+    public int[] shuffle(int[] nums, int n) {
+        int[] shuffledArray = new int[2 * n];
+        for (int i = 0, j = 0, k = n; i < 2 * n; i++) {
+            if (i % 2 == 0) {
+                shuffledArray[i] = nums[j];
+                j += 1;
+            } else {
+                shuffledArray[i] = nums[k];
+                k += 1;
+            }
+        }
+
+        return shuffledArray;
+
+    }
+
+    public String convert(String s, int numRows) {
+        String[][] arr = new String[numRows][s.length() / numRows];
+
+        int index = 0, row = 0, col = 0;
+        boolean zig = true, zag = true;
+        while (index < s.length()) {
+            if (row == 0) {
+                zig = true;
+                zag = false;
+            }
+            if (row == numRows) {
+                zig = false;
+                zag = true;
+            }
+
+            if (zig) {
+                arr[row][col] = String.valueOf(s.charAt(index));
+                System.out.println(row + " " + col + " = " + index);
+                row++;
+                index++;
+            }
+            if (zag) {
+                arr[row][col] = String.valueOf(s.charAt(index));
+                System.out.println(row + " " + col + " = " + index);
+                row--;
+                col++;
+                index++;
+
+            }
+
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] != null)
+                    sb.append(arr[i][j]);
+            }
+        }
+
+        return sb.toString();
+
+    }
+
+    public int maxArea(int[] height) {
+        int start = 0;
+        int end = height.length - 1;
+
+        int maxArea = Integer.MIN_VALUE;
+        while (start < end) {
+            int base = end - start;
+            int area = height[start] > height[end] ? height[end] * base : height[start] * base;
+            if(maxArea < area) maxArea = area;
+
+            if(height[start] < height[end]) start ++;
+            else end --;
+        }
+
+        return maxArea;
+    }
+
+    public int strStr(String haystack, String needle) {
+        return haystack.indexOf(needle);
+    }
+
+    public static void main(String[] args) {
+
+
+    }
+
 }
