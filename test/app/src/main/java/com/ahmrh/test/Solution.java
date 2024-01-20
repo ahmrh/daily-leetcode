@@ -713,6 +713,41 @@ public class Solution {
         return haystack.indexOf(needle);
     }
 
+
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> res = new ArrayList<>();
+        int[] tempInterval = newInterval.clone();
+        int n = intervals.length;
+
+        int i = 0;
+        while(i < n){
+            int[] interval = intervals[i];
+
+            if(tempInterval[1] < interval[0]){
+                res.add(tempInterval);
+                while(i < n){
+                    res.add(intervals[i]);
+                    i ++;
+                }
+                return res.toArray(new int[0][]);
+            }
+            else if(interval[1] < tempInterval[0]){
+                res.add(interval);
+            } else {
+                tempInterval[0] = Math.min(tempInterval[0], interval[0]);
+                tempInterval[1] = Math.max(tempInterval[1], interval[1]);
+            }
+
+            i++;
+        }
+
+        res.add(tempInterval);
+
+        return res.toArray(new int[0][]);
+
+    }
+
+
     public static void main(String[] args) {
 
 
