@@ -739,6 +739,7 @@ public class Solution {
             }
 
             i++;
+            
         }
 
         res.add(tempInterval);
@@ -747,6 +748,40 @@ public class Solution {
 
     }
 
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int length = matrix.length;
+
+        for(int[] array: matrix){
+            if(binarySearch(array, target)) return true;
+        }
+
+        return false;
+
+    }
+
+    public boolean binarySearch(int[] array, int target){
+        int length = array.length;
+        if(length == 1)
+            return array[0] == target;
+
+        int start = 0, end = length - 1;
+
+        while(start <= end){
+            int mid = start + (end - start) / 2;
+
+            if(array[mid] < target){
+                start = mid + 1;
+            } else if(array[mid] > target){
+                end = mid - 1;
+            } else{
+                return true;
+            }
+
+        }
+
+        return false;
+    }
 
     public static void main(String[] args) {
 
