@@ -809,7 +809,27 @@ public class Solution {
 
     }
 
+    public boolean isHappy(int n) {
+        if(isSingleDigit(n) ) {
+            return n == 7 || n == 1;
+        }
 
+        int number = 0;
+        int temp = n, digit = 0;
+
+        while(temp != 0){
+            digit = temp % 10;
+            temp /= 10;
+            number += Math.pow(digit, 2);
+        }
+
+        System.out.println(number);
+        return isHappy(number);
+
+    }
+    private boolean isSingleDigit(int num){
+        return num / 10 != 0;
+    }
 
 
     public static void main(String[] args) {
