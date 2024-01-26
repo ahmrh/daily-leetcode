@@ -218,7 +218,7 @@ public class Solution {
                 i++;
 
             if (start != nums[i])
-                ranges.add("" + start + "->" + nums[i]);
+                ranges.add(start + "->" + nums[i]);
             else
                 ranges.add(String.valueOf(start));
         }
@@ -231,7 +231,7 @@ public class Solution {
         StringBuilder sb = new StringBuilder();
 
         char c = s.charAt(0);
-        String s1 = "" + c;
+        String s1 = String.valueOf(c);
 
         for (int i = 1; i < s.length(); i++) {
             char c1 = s.charAt(i);
@@ -239,17 +239,17 @@ public class Solution {
                 s1 += c1;
             } else {
                 if (s1.length() > 2) {
-                    sb.append("" + c + c);
+                    sb.append(String.valueOf(c) + c);
                 } else {
                     sb.append(s1);
                 }
                 c = s.charAt(i);
-                s1 = "" + c;
+                s1 = String.valueOf(c);
             }
         }
 
         if (s1.length() > 2) {
-            sb.append("" + c + c);
+            sb.append(String.valueOf(c) + c);
         } else {
             sb.append(s1);
         }
@@ -756,8 +756,8 @@ public class Solution {
             if(binarySearch(array, target)) return true;
         }
 
-        return false;
 
+        return false;
     }
 
     public boolean binarySearch(int[] array, int target){
@@ -827,6 +827,33 @@ public class Solution {
         return isHappy(number);
 
     }
+
+
+//    SIEVE OF ERATOSTHENES algorithm
+    public int countPrimes(int n) {
+        boolean[] prime = new boolean[n];
+        Arrays.fill(prime, true);
+
+        for(int i = 2; i * i < n; i++){
+            if(prime[i]){
+                for(int j = i; j * i < n; j++){
+                    prime[i * j] = false;
+                }
+            }
+        }
+
+        for(boolean i : prime){
+            System.out.println(i);
+        }
+
+        int count = 0;
+        for(int i = 2; i < prime.length; i++){
+            if(prime[i]) count += 1;
+        }
+
+        return count;
+    }
+
     private boolean isSingleDigit(int num){
         return num / 10 != 0;
     }
