@@ -3,6 +3,7 @@ package com.ahmrh.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -856,6 +857,33 @@ public class Solution {
 
     private boolean isSingleDigit(int num){
         return num / 10 != 0;
+    }
+
+
+    public void rotate(int[] nums, int k) {
+        int length = nums.length;
+
+        if(length <= 1) return;
+
+        int[] tempNums = nums.clone();
+
+        int step = k % length;
+
+        for(int i = length - 1; i >= 0; i--){
+            if(i - step >= 0)
+                nums[i] = tempNums[i - step];
+            else
+                nums[i] = tempNums[length + i - step];
+
+        }
+
+    }
+
+    void printArray(int[] nums){
+        System.out.println("Printing Array");
+        for(int num: nums)
+            System.out.print(num + " ");
+        System.out.println();
     }
 
 
