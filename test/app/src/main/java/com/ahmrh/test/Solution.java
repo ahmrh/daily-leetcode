@@ -879,6 +879,29 @@ public class Solution {
 
     }
 
+
+    public boolean isIsomorphic(String s, String t) {
+
+        HashMap<String, String> map = new HashMap<>();
+
+        for(int i = 0; i < s.length(); i++){
+            String s1 = String.valueOf(s.charAt(i));
+            String t1 = String.valueOf(t.charAt(i));
+
+            if(map.get(s1) == null){
+                if(map.containsValue(t1))
+                    return false;
+
+                map.put(s1, t1);
+            } else if(!map.get(s1).equals(t1))
+                return false;
+
+        }
+
+        return true;
+
+    }
+
     void printArray(int[] nums){
         System.out.println("Printing Array");
         for(int num: nums)
