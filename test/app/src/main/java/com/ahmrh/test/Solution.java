@@ -902,11 +902,23 @@ public class Solution {
 
     }
 
-    void printArray(int[] nums){
-        System.out.println("Printing Array");
-        for(int num: nums)
-            System.out.print(num + " ");
-        System.out.println();
+
+    public TreeNode invertTree(TreeNode root) {
+
+        invertTraversal(root);
+
+        return root;
+    }
+
+    void invertTraversal(TreeNode node) {
+        if(node == null) return;
+
+        TreeNode temp = node.left;
+        node.left = node.right;
+        node.right = temp;
+
+        invertTraversal(node.left);
+        invertTraversal(node.right);
     }
 
 
