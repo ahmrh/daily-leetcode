@@ -3,9 +3,13 @@ package com.ahmrh.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
+import java.util.stream.IntStream;
 
 public class Solution {
     public String reverseVowels(String s) {
@@ -899,9 +903,7 @@ public class Solution {
         }
 
         return true;
-
     }
-
 
     public TreeNode invertTree(TreeNode root) {
 
@@ -921,6 +923,40 @@ public class Solution {
         invertTraversal(node.right);
     }
 
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        Arrays.sort(nums);
+
+        int[] unique = IntStream.of(nums).distinct().toArray();
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for(int i = 1, j = 0; (i <= nums.length) && j < unique.length; i++){
+            System.out.println(i + " " + unique[j]);
+            if(i != unique[j]){
+                list.add(i);
+            } else
+                j++;
+        }
+
+        return list;
+    }
+
+
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if(root == null) return subRoot == null;
+
+        return isSame(root, subRoot)
+                || isSubtree(root.left, subRoot)
+                || isSubtree(root.right, subRoot);
+
+    }
+
+    private boolean isSame(TreeNode t1, TreeNode t2) { // takes O(n)
+        if (t1 == null && t2 == null) return true;
+        if (t1 == null || t2 == null) return false;
+
+        if (t1.val != t2.val) return false;
+        return isSame(t1.left, t2.left) && isSame(t1.right, t2.right);
+    }
 
     public static void main(String[] args) {
 
