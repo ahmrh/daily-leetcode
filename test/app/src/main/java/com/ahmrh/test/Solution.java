@@ -958,6 +958,30 @@ public class Solution {
         return isSame(t1.left, t2.left) && isSame(t1.right, t2.right);
     }
 
+    public String reverseWords(String s) {
+        String[] arr = s.split(" ");
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < arr.length; i++){
+            sb.append(reverseWord(arr[i]));
+            if(i == arr.length - 1) continue;
+
+            sb.append(" ");
+        }
+
+        return sb.toString();
+
+    }
+
+    private String reverseWord(String s){
+        StringBuilder sb = new StringBuilder();
+        for(int i = s.length() - 1; i >= 0; i --){
+            sb.append(s.charAt(i));
+        }
+
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
 
 
