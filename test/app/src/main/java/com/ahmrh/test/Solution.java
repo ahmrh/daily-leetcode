@@ -982,6 +982,54 @@ public class Solution {
         return sb.toString();
     }
 
+
+    List<Integer> list;
+    public List<Integer> preorder(Node root) {
+        list = new ArrayList<>();
+
+        nAryTreePreorderTraversal(root);
+
+        System.gc();
+        return list;
+    }
+
+    private void nAryTreePreorderTraversal(Node root){
+        if(root == null) return;
+
+        list.add(root.val);
+        for(Node node: root.children){
+            nAryTreePreorderTraversal(node);
+        }
+    }
+
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        if(flowerbed.length == 1) return flowerbed[0] == 0 || n == 0;
+
+        for(int i = 0; i < flowerbed.length; i++){
+            if(flowerbed[i] == 0){
+
+                if(i == 0 && flowerbed[i + 1] == 0){
+                    flowerbed[i] = 1;
+                    n --;
+                }
+                else if(i == flowerbed.length - 1 && flowerbed[i - 1] == 0){
+                    flowerbed[i] = 1;
+                    n --;
+
+                }
+                else if(flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0){
+                    flowerbed[i] = 1;
+                    n --;
+
+                }
+
+            }
+        }
+        System.out.println(n);
+
+        return n <= 0;
+    }
+
     public static void main(String[] args) {
 
 
