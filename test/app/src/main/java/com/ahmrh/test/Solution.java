@@ -417,6 +417,19 @@ public class Solution {
 
     }
 
+    // i just implemented an algorithm in discussion, i had to look how its work
+    public TreeNode trimBST(TreeNode root, int low, int high) {
+        if(root == null) return null;
+
+        root.right = trimBST(root.right, low, high);
+        root.left = trimBST(root.left, low, high);
+
+        if(root.val < low) return root.right;
+        if(root.val > high) return root.left;
+
+        return root;
+
+    }
 //    private int goodStringCounter = 0;
 //
 //    private final HashMap<String, String> hashMap = new HashMap<>();
@@ -1028,6 +1041,18 @@ public class Solution {
         System.out.println(n);
 
         return n <= 0;
+    }
+
+    public int findLengthOfLCIS(int[] nums) {
+        int anchor = 0, length = 0;
+
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i - 1] >= nums[i])
+                anchor = i;
+            length = Math.max(length, i - anchor + 1);
+        }
+
+        return length;
     }
 
     public static void main(String[] args) {
