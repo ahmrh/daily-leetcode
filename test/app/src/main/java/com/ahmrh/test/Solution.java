@@ -1055,6 +1055,93 @@ public class Solution {
         return length;
     }
 
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int n = gas.length;
+
+        int total = 0;
+        for(int i = 0; i < n; i++)
+            total += gas[i] - cost[i];
+
+        if(total < 0) return -1;
+
+        for(int i = 0; i < n; i++){
+            System.out.println();
+            int currentGas = 0;
+
+            for(int j = i; j < n + i; j++){
+                int jIndex = j % n;
+                currentGas += gas[jIndex] - cost[jIndex];
+                System.out.println(j);
+
+                if(currentGas < 0) break;
+                if(j == n + i) return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public int peakIndexInMountainArray(int[] arr) {
+
+        int start = 0, end = arr.length - 1;
+
+        while(true){
+            int mid = start  + ((end - start) / 2);
+
+            if(arr[mid - 1] < arr[mid] && arr[mid] > arr[mid + 1]){
+                return mid;
+            }
+            if(arr[mid - 1] < arr[mid] && arr[mid] < arr[mid + 1]){
+                start = mid;
+            } else if(arr[mid - 1] > arr[mid] && arr[mid] > arr[mid + 1]){
+                end = mid - 1;
+            }
+        }
+
+    }
+
+
+    public int countCharacters(String[] words, String chars) {
+        int count = 0;
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for(String c: chars.split("")){
+            if((hashMap.get(c) == null)){
+                hashMap.put(c, 1);
+            } else {
+                hashMap.put(c, hashMap.get(c) + 1);
+            }
+        }
+
+        for(String word: words){
+            boolean good = true;
+            HashMap<String, Integer> hashMapCopy = new HashMap<>(hashMap);
+
+            for(String c: word.split("")){
+                if(hashMapCopy.get(c) != null){
+                    if(hashMapCopy.get(c) == 0){
+                        hashMapCopy.remove(c);
+                        good = false;
+                        break;
+
+                    } else {
+                        hashMapCopy.put(c, hashMapCopy.get(c) - 1);
+                    }
+                } else{
+                    good = false;
+                    break;
+                }
+            }
+
+            if(good){
+                System.out.println(word);
+                count += word.length();
+            }
+        }
+
+        return count;
+
+    }
+
     public static void main(String[] args) {
 
 
