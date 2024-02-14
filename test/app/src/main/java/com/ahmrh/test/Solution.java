@@ -1142,6 +1142,58 @@ public class Solution {
 
     }
 
+    public String getHint(String secret, String guess) {
+        int n = secret.length();
+
+        HashMap<Character, Integer> secretChars = new HashMap<>();
+        for(int i = 0; i < n; i++){
+            char secretChar = secret.charAt(i);
+            if(secretChars.get(secretChar) == null){
+                secretChars.put(secretChar, 1);
+            } else {
+                secretChars.put(secretChar, secretChars.get(secretChar) + 1);
+            }
+        }
+
+
+        int bulls = 0;
+        int cows = 0;
+        for(int i = 0; i < n; i++){
+            if(secret.charAt(i) == guess.charAt(i)){
+                bulls += 1;
+                secretChars.put(secret.charAt(i), );
+            } else if(secret.contains(guess.charAt(i))){
+
+            }
+        }
+
+        return String.format("$dA%dB", bulls, cows);
+    }
+
+    List<String> parenthesisList = new ArrayList<>();
+
+    public List<String> generateParenthesis(int n) {
+
+        generateParenthesisRecursion("", n, n);
+
+        return parenthesisList;
+    }
+
+    private void generateParenthesisRecursion(String parenthesis, int open, int close){
+        if(open == 0 && close == 0) {
+            parenthesisList.add(parenthesis);
+            return;
+        }
+
+        if(close > open){
+            if(open != 0) generateParenthesisRecursion(parenthesis + "(", open - 1, close);
+            if(close != 0) generateParenthesisRecursion(parenthesis + ")", open, close - 1);
+        } else {
+            if(open != 0) generateParenthesisRecursion(parenthesis + "(", open - 1, close);
+        }
+    }
+
+
     public static void main(String[] args) {
 
 
