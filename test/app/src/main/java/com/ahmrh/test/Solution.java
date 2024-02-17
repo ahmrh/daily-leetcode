@@ -1,7 +1,9 @@
 package com.ahmrh.test;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -1192,6 +1194,73 @@ public class Solution {
             if(open != 0) generateParenthesisRecursion(parenthesis + "(", open - 1, close);
         }
     }
+
+    public String addBinary(String a, String b) {
+        Long num1 = Long.parseLong(a, 2);
+        Long num2 = Long.parseLong(b, 2);
+        Long result = num1 + num2;
+        return Long.toBinaryString(result);
+    }
+
+    List<List<Integer>> permutedList = new ArrayList<>();
+
+    public List<List<Integer>> permute(int[] nums) {
+        List<Integer> result = new ArrayList<>();
+        List<Integer> remains = new ArrayList<>();
+        for(int num: nums) remains.add(num);
+
+        permuteRecursion(result, remains);
+
+        return permutedList;
+    }
+
+    private void permuteRecursion(List<Integer> result, List<Integer> remains){
+        System.out.println();
+        if(remains.size() == 0) {
+            permutedList.add(result);
+            return;
+        }
+
+        for(int i = 0; i < remains.size(); i++){
+            List<Integer> resultCopy = new ArrayList<>(result);
+            resultCopy.add(remains.get(i));
+
+            List<Integer> remainsCopy = new ArrayList<>(remains);
+            remainsCopy.remove(i);
+
+
+            permuteRecursion(resultCopy, remainsCopy);
+        }
+    }
+
+
+    public int search(int[] nums, int target) {
+
+        int left = 0, right = nums.length - 1;
+
+        while(left <= right){
+            int middle = ((left + right) / 2);
+            System.out.println(left + " " + middle + " " + right);
+            if(nums[middle] == target) return middle;
+
+            if(nums[left] <= nums[middle]){
+                if(target > nums[middle] || target < nums[left]){
+                    left = middle + 1;
+                } else {
+                    right = middle - 1;
+                }
+            } else {
+                if(target < nums[middle] || target > nums[right]){
+                    right = middle - 1;
+                } else {
+                    left = middle + 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+
 
 
     public static void main(String[] args) {
