@@ -1,6 +1,7 @@
 package com.ahmrh.test;
 
 import java.math.BigInteger;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -1261,6 +1262,53 @@ public class Solution {
         return -1;
     }
 
+    String word;
+    char[][] board;
+    int m, n;
+    boolean exist = false;
+
+    public boolean exist(char[][] board, String word) {
+        this.word = word;
+        this.board = board;
+        this.m = board.length;
+        this.n = board[0].length;
+
+        boolean[][] hasPassed = new boolean[m][n];
+        for(boolean[] row: hasPassed) Arrays.fill(row, false);
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                System.out.println(board[i][j] + " " + word.charAt(0));
+                if(word.charAt(0) == board[i][j]){
+                    existBacktrack(hasPassed.clone(), i, j, 0);
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+    public void existBacktrack(boolean[][] hasPassed, int x, int y, int index){
+        if(index >= word.length()) {
+            System.out.println("it exist");
+            this.exist = true;
+        } else {
+            if(x < 0 || x >= m || y < 0 || y >= n || hasPassed[x][y]) return;
+
+            if(board[x][y] == word.charAt(index)) {
+                hasPassed[x][y] = true;
+
+                existBacktrack(hasPassed, x, y + 1, index + 1);
+                existBacktrack(hasPassed, x - 1, y, index + 1);
+                existBacktrack(hasPassed, x, y - 1, index + 1);
+                existBacktrack(hasPassed, x + 1, y, index + 1);
+
+
+                hasPassed[x][y] = false;
+            }
+        }
+    }
 
 
     public static void main(String[] args) {
