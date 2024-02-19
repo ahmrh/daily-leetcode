@@ -1,16 +1,10 @@
 package com.ahmrh.test;
 
-import java.math.BigInteger;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+import java.util.Map;
 import java.util.Stack;
 import java.util.stream.IntStream;
 
@@ -1310,6 +1304,49 @@ public class Solution {
         }
     }
 
+
+
+
+    private static Map<Character, String> letters = new HashMap(){
+        {
+            put('2', "abc");
+            put('3', "def");
+            put('4', "ghi");
+            put('5', "jkl");
+            put('6', "mno");
+            put('7', "pqrs");
+            put('8', "tuv");
+            put('9', "wxyz");
+        }
+    };
+
+    private ArrayList<String> letterCombination = new ArrayList<>();
+    private String keys = "";
+
+    public List<String> letterCombinations(String digits) {
+        if(digits.length() == 0) return letterCombination;
+
+        keys = digits;
+        backtrack(0, "");
+
+        return letterCombination;
+
+    }
+
+    private void backtrack(int keyIndex, String s){
+
+        if(keyIndex >= keys.length()){
+            letterCombination.add(s);
+            return;
+        }
+
+        String letter = letters.get(keys.charAt(keyIndex));
+        if(letter == null) return;
+
+        for(int i = 0; i < letter.length(); i++){
+            backtrack(keyIndex + 1, s + letter.charAt(i));
+        }
+    }
 
     public static void main(String[] args) {
 
