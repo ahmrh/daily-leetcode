@@ -1030,6 +1030,47 @@ public class Solution {
         return n <= 0;
     }
 
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        TreeNode mergedRoot = mergeTraversal(null, root1, root2);
+
+        return mergedRoot;
+    }
+
+    public TreeNode mergeTraversal(TreeNode mergedNode, TreeNode node1, TreeNode node2){
+        if(node1 == null) return node2;
+        if(node2 == null) return node1;
+
+        mergedNode = new TreeNode(node1.val + node2.val);
+
+        mergedNode.left = mergeTraversal(mergedNode.left, node1.left, node2.left);
+        mergedNode.right = mergeTraversal(mergedNode.right, node1.right, node2.right);
+
+        return mergedNode;
+    }
+
+
+    public boolean checkPossibility(int[] nums) {
+        int count = 0, index = 0;
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i - 1] > nums[i]) count++;
+
+            if(count > 1) return false;
+            if(count == 1) index = i;
+        }
+
+        if(count == 0) return true;
+        else {
+            try{
+
+                return (nums[index - 1] <= nums[index + 1])
+                        || (nums[index] <= nums[index + 2]);
+            } catch(Exception e){
+                return false;
+            }
+        }
+
+
+    }
     public static void main(String[] args) {
 
 
