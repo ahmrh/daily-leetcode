@@ -3,11 +3,8 @@ package com.ahmrh.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+import java.util.Map;
 import java.util.Stack;
 import java.util.stream.IntStream;
 
@@ -1030,6 +1027,70 @@ public class Solution {
         return n <= 0;
     }
 
+
+    private static Map<Character, String> letters = new HashMap(){
+        {
+            put('2', "abc");
+            put('3', "def");
+            put('4', "ghi");
+            put('5', "jkl");
+            put('6', "mno");
+            put('7', "pqrs");
+            put('8', "tuv");
+            put('9', "wxyz");
+        }
+    };
+
+    private ArrayList<String> letterCombination = new ArrayList<>();
+    private String keys = "";
+
+    public List<String> letterCombinations(String digits) {
+        if(digits.length() == 0) return letterCombination;
+
+        keys = digits;
+        letterCombinationsBacktrack(0, "");
+
+        return letterCombination;
+
+    }
+
+    private void letterCombinationsBacktrack(int keyIndex, String s){
+
+        if(keyIndex >= keys.length()){
+            letterCombination.add(s);
+            return;
+        }
+
+        String letter = letters.get(keys.charAt(keyIndex));
+        if(letter == null) return;
+
+        for(int i = 0; i < letter.length(); i++){
+            letterCombinationsBacktrack(keyIndex + 1, s + letter.charAt(i));
+        }
+    }
+
+
+    public ListNode swapPairs(ListNode head) {
+
+        if(head == null || head.next == null) return head;
+
+        ListNode dummy = new ListNode(-100);
+
+        ListNode curr = head;
+        ListNode prev = dummy;
+
+        while(curr != null && curr.next != null){
+            prev.next = curr.next;
+            curr.next = prev.next.next;
+            prev.next.next = curr;
+
+            prev = curr;
+            curr = curr.next;
+        }
+
+        return dummy.next;
+    }
+    
     public static void main(String[] args) {
 
 
