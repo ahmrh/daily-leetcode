@@ -1090,6 +1090,46 @@ public class Solution {
 
         return dummy.next;
     }
+
+
+    private int[][] matrix;
+    private int n;
+    public void rotate(int[][] matrix) {
+
+        this.matrix = matrix;
+        this.n = matrix.length;
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n/2; j++){
+                swapMatrixElement(i, j, i, n - j - 1);
+            }
+        }
+
+        printMatrix();
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n - i; j++){
+                swapMatrixElement(i, j, n - j - 1, n - i - 1);
+            }
+        }
+    }
+
+    private void printMatrix(){
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    private void swapMatrixElement(int i0, int j0, int i1, int j1){
+        int temp = matrix[i0][j0];
+
+        matrix[i0][j0] = matrix[i1][j1];
+        matrix[i1][j1] = temp;
+    }
     
     public static void main(String[] args) {
 
