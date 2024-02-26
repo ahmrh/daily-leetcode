@@ -330,15 +330,6 @@ public class Solution {
         return sum;
     }
 
-    public boolean isAnagram(String s, String t) {
-        char[] arr1 = s.toCharArray();
-        char[] arr2 = t.toCharArray();
-
-        Arrays.sort(arr1);
-        Arrays.sort(arr2);
-
-        return Arrays.equals(arr1, arr2);
-    }
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ArrayList<Integer> arrayList = new ArrayList();
@@ -1130,7 +1121,46 @@ public class Solution {
         matrix[i0][j0] = matrix[i1][j1];
         matrix[i1][j1] = temp;
     }
-    
+
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        ArrayList<List<String>> output = new ArrayList<>();
+
+        HashMap<String, ArrayList<String>> hashMap = new HashMap<>();
+
+        for(String str: strs){
+            char[] keyArray = str.toCharArray();
+            Arrays.sort(keyArray);
+            String key = Arrays.toString(keyArray);
+
+            ArrayList<String> value;
+            if(hashMap.get(key) != null){
+                value = hashMap.get(key);
+            } else {
+                value = new ArrayList<>();
+            }
+            value.add(str);
+            hashMap.put(key, value);
+        }
+
+        for (Map.Entry<String, ArrayList<String>> entry : hashMap.entrySet()) {
+            output.add(entry.getValue());
+        }
+
+        return output;
+
+    }
+
+    private boolean isAnagram(String s, String t) {
+        char[] arr1 = s.toCharArray();
+        char[] arr2 = t.toCharArray();
+
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+
+        return Arrays.equals(arr1, arr2);
+    }
+
     public static void main(String[] args) {
 
 
