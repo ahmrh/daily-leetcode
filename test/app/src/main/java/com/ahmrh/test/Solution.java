@@ -1151,6 +1151,60 @@ public class Solution {
 
     }
 
+//    private int[][] merge(int[][] intervals) {
+//        int n = intervals.length;
+//        boolean[] isMerged = new boolean[n];
+//
+//        ArrayList<int[]> arrayList = new ArrayList<int[]>();
+//
+//        for(int i = 0; i < intervals.length; i++){
+//            if(isMerged[i]) continue;
+//            int[] interval = intervals[i];
+//            isMerged[i] = true;
+//
+//            for(int j = i + 1; j < intervals.length; j++){
+//                // check if it is overlapped
+//                if(interval[0] <= intervals[j][0] && intervals[j][1] <= interval[1]){}
+//                else if(intervals[j][0] <= interval[0] && interval[1] <= intervals[j][1]){
+//                    interval[0] = intervals[j][0];
+//                    interval[1] = intervals[j][1];
+//                }
+//                else if(interval[1] >= intervals[j][0]){
+//                    interval[1] = intervals[j][1];
+//                }
+//                else if(intervals[j][1] >= interval[0]){
+//                    interval[0] = intervals[j][0];
+//                } else {
+//                    continue;
+//                }
+//
+//                isMerged[j] = true;
+//            }
+//            arrayList.add(interval);
+//        }
+//
+//        return arrayList.toArray(new int[n][2]);
+//
+//
+//    }
+
+    // gotta learn this code 
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+
+        int[][] mergedIntervals = new int[intervals.length][2];
+        int mergedIndex = 0;
+
+        for (int[] interval : intervals) {
+            if (mergedIndex == 0 || interval[0] > mergedIntervals[mergedIndex - 1][1]) {
+                mergedIntervals[mergedIndex++] = interval;
+            } else {
+                mergedIntervals[mergedIndex - 1][1] = Math.max(mergedIntervals[mergedIndex - 1][1], interval[1]);
+            }
+        }
+
+        return Arrays.copyOf(mergedIntervals, mergedIndex);
+    }
     private boolean isAnagram(String s, String t) {
         char[] arr1 = s.toCharArray();
         char[] arr2 = t.toCharArray();
